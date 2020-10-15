@@ -1,26 +1,40 @@
-# tfserving_tutorial
+# Tfserving Tutorial
 tensorflow serving tutorial
 
-## how to start (beginner guide):
+## How to Start (beginner guide):
 
-### what is docker and how to install
+### Docker & Installation
 
-todo
+Docker Engine is an open source containerization technology for building and containerizing your applications.
 
-### prerequirements:
+[Install in
+ubuntu](https://docs.docker.com/engine/install/ubuntu/#prerequisites)
+
+[Other os.](https://docs.docker.com/engine/install/)
+
+### Installation:
+
+#### Docker (Recommanded)
 
 1) Download the TensorFlow Serving Docker image
 
 ```
 docker pull tensorflow/serving
 ```
-2) Download the repo
+#### Tensorflow Module (Not Recommened)
+
+2) [Install in
+ubuntu](https://github.com/tensorflow/serving/blob/master/tensorflow_serving/g3doc/setup.md#installation-1)
 
 ```
-git clone https://github.com/tensorflow/serving
+echo "deb [arch=amd64] http://storage.googleapis.com/tensorflow-serving-apt stable tensorflow-model-server tensorflow-model-server-universal" | sudo tee /etc/apt/sources.list.d/tensorflow-serving.list && \
+curl https://storage.googleapis.com/tensorflow-serving-apt/tensorflow-serving.release.pub.gpg | sudo apt-key add -
+```
+```
+apt-get update && apt-get install tensorflow-model-server
 ```
 
-### export trained model:
+### Export Trained Model:
 
 In new version you should only pass **save_format="tf"** parameter to **save** method:
 ```
@@ -54,13 +68,13 @@ keras.experimental.export_saved_model(model, )
 
 ```
 
-### Full code in jupyter notebook:
+### Export Model Code:
 
 [ModelDeployment.ipynb](./ModelDeployment.ipynb)
 
-### Config file
+### Config File
 
-Create a **models.config**  file with this content
+Create a **models.config**  file for use multi models and multi versions.
 
 ```
 model_config_list {
@@ -76,32 +90,29 @@ model_config_list {
 }
 ```
 
-why?! todo
+### Start TensorFlow Serving Container
 
-###  Start TensorFlow Serving container and open the REST API port
-
-Type a folowing command in terminal:
+Type a following command in terminal:
 
 ```
-docker run -it -d -p 8500:8500 -p 8501:8501 --name tfs_mymodel -v $(pwd)/saved_model:/models/mymodel:rw -v $(pwd)/models.config:/models/models.config:rw -e MODEL_NAME=mymodel tensorflow/serving --model_config_file=/models/models.config
+docker run -it -d -p 8500:8500 -p 8501:8501 --name tfs_mymodel -v $(pwd)/saved_model:/models/mymodel:rw \ 
+-v $(pwd)/models.config:/models/models.config:rw -e MODEL_NAME=mymodel tensorflow/serving \
+--model_config_file=/models/models.config
 ```
 
-#### parameters description
-todo
 
 ### Check API:
-type
 ```
-localhost:8501/v1/models/mymodel
+curl http://localhost:8501/v1/models/mymodel
 ```
-in your browser, you should see the folowing output:
+In your browser, you should see the folowing output:
 
 ![](img/rest.jpg)
 
 
-### Call inference API
+### Call Inference API
 
-If you  want send a request and get the prediction from latest version, you can simply try:
+If you want send a request and get the prediction from latest version, you can simply try:
 
 ```
 import json
@@ -131,6 +142,6 @@ json_response = requests.post('http://localhost:8501/v1/models/mymodel/versions/
 new_predictions = numpy.array(json.loads(json_response.text)["predictions"])
 ```
 
-you can try it with a notebook:
+You can try it with a notebook:
 
 [inference-api.ipynb](./inference-api.ipynb)
