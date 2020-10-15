@@ -1,29 +1,29 @@
 # Tfserving Tutorial
-tensorflow serving tutorial
+Tensorflow serving tutorial
 
 ## How to Start (beginner guide):
 
-### Docker & Installation
+### Docker
 
 Docker Engine is an open source containerization technology for building and containerizing your applications.
 
-[Install in
-ubuntu](https://docs.docker.com/engine/install/ubuntu/#prerequisites)
+#### Installation
+[Ubuntu](https://docs.docker.com/engine/install/ubuntu/#prerequisites)
 
-[Other os.](https://docs.docker.com/engine/install/)
+[Other os](https://docs.docker.com/engine/install/)
 
-### Installation:
+### Installation
 
 #### Docker (Recommanded)
 
-1) Download the TensorFlow Serving Docker image
+Download the TensorFlow Serving Docker image
 
 ```
 docker pull tensorflow/serving
 ```
 #### Tensorflow Module (Not Recommened)
 
-2) [Install in
+[Install in
 ubuntu](https://github.com/tensorflow/serving/blob/master/tensorflow_serving/g3doc/setup.md#installation-1)
 
 ```
