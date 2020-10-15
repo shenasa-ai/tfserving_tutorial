@@ -23,7 +23,7 @@ docker pull tensorflow/serving
 ```
 #### Tensorflow Module (Not Recommened)
 
-[Install in
+[Install on
 ubuntu](https://github.com/tensorflow/serving/blob/master/tensorflow_serving/g3doc/setup.md#installation-1)
 
 ```
