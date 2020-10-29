@@ -145,3 +145,5 @@ new_predictions = numpy.array(json.loads(json_response.text)["predictions"])
 You can try it with a notebook:
 
 [inference-api.ipynb](./inference-api.ipynb)
+
+[All efficient documents of serving](https://github.com/tensorflow/serving/tree/master/tensorflow_serving/g3doc)
